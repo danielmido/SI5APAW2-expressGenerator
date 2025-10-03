@@ -1,0 +1,26 @@
+<table border="1">
+  <thead>
+    <tr>
+      <th>Nama Prodi</th>
+      <th>Singkatan</th>
+      <th>Nama Fakultas</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% prodi.forEach(prodi=> { %>
+      <tr>
+        <td>
+          <%= prodi.namaProdi %>
+        </td>
+        <td>
+          <%= prodi.singkatan %>
+        </td>
+        <td>
+          <%= prodi.namaFakultas %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+
+</table>
