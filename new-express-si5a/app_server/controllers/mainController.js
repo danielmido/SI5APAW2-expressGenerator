@@ -1,23 +1,16 @@
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
+const index = (req, res) => {
   res.render('index', { title: 'Express', layout: 'main' });
-});
+}
 
-/* GET about page. */
-router.get('/about', function(req, res, next) {
+const about = (req, res) => {
   res.render('about', { title: 'About Us', layout: 'main' });
-});
+}
 
-/* GET contact page. */
-router.get('/contact', function(req, res, next) {
+const contact = (req, res) => {
   res.render('contact', { title: 'Contact Us', layout: 'main' });
-});
+}
 
-/* GET prodi page. */
-router.get('/prodi', function(req, res, next) {
+const prodi = (req, res) => {
   const prodi = [
     { kode: 24, namaProdi: "Sistem Informasi", singkatan: "SI", namaFakultas: "Fakultas Ilmu Komputer an Rekayasa" },
     { kode: 25, namaProdi: "Informatika", singkatan: "IF", namaFakultas: "Fakultas Ilmu Komputer dan Rekayasa" },
@@ -28,6 +21,6 @@ router.get('/prodi', function(req, res, next) {
   ];
 
   res.render('prodi', { prodi, title: 'Prodi', layout: 'main' });
-});
+}
 
-module.exports = router;
+module.exports = {index, about, contact, prodi};
