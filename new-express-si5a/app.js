@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts'); // impor express-ejs-layouts
 
+const connectDB = require("./app_api/models/db"); 
+connectDB(); // connect to mongoDB
+
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
 
