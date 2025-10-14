@@ -10,6 +10,7 @@ connectDB(); // connect to mongoDB
 
 // route app_api
 const fakultasRouterAPI = require("./app_api/routes/fakultas");
+const beritaRouterAPI = require("./app_api/routes/berita");
 
 // route app_server
 var indexRouter = require('./app_server/routes/index');
@@ -30,7 +31,9 @@ app.use(expressLayouts);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 app.use('/api/fakultas', fakultasRouterAPI);
+app.use('/api/fakultas', beritaRouterAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
