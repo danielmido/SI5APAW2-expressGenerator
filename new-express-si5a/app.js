@@ -11,6 +11,8 @@ connectDB(); // connect to mongoDB
 // route app_api
 const fakultasRouterAPI = require("./app_api/routes/fakultas");
 const beritaRouterAPI = require("./app_api/routes/berita");
+const prodiRouterAPI = require("./app_api/routes/prodi");
+const mahasiswaRouterAPI = require("./app_api/routes/mahasiswa");
 
 // route app_server
 var indexRouter = require('./app_server/routes/index');
@@ -33,7 +35,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use('/api/fakultas', fakultasRouterAPI);
-app.use('/api/fakultas', beritaRouterAPI);
+app.use('/api/berita', beritaRouterAPI);
+app.use('/api/prodi', prodiRouterAPI);
+app.use('/api/mahasiswa', mahasiswaRouterAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
