@@ -16,7 +16,8 @@ const createProdi = async(req, res) => {
   // buat instance
   const prodi = new prodiSchema({
     nama: req.body.nama,
-    singkatan: req.body.singkatan
+    singkatan: req.body.singkatan,
+    fakultas_id: req.body.fakultas_id
   })
 
   // simpan data prodi ke dalam collection
