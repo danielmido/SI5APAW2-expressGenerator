@@ -14,10 +14,13 @@ const fakultasRouterAPI = require("./app_api/routes/fakultas");
 const beritaRouterAPI = require("./app_api/routes/berita");
 const prodiRouterAPI = require("./app_api/routes/prodi");
 const mahasiswaRouterAPI = require("./app_api/routes/mahasiswa");
+const authRouterAPI = require("./app_api/routes/auth");
 
 // route app_server
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
+
+require("dotenv").config(); // load environment variables
 
 var app = express();
 app.use(cors());
@@ -40,6 +43,7 @@ app.use('/api/fakultas', fakultasRouterAPI);
 app.use('/api/berita', beritaRouterAPI);
 app.use('/api/prodi', prodiRouterAPI);
 app.use('/api/mahasiswa', mahasiswaRouterAPI);
+app.use('/api/auth', authRouterAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
