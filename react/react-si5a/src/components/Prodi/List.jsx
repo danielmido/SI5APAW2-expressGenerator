@@ -54,6 +54,7 @@ export default function ProdiList() {
           <tr>
             <th>Nama</th>
             <th>Singkatan</th>
+            <th>Fakultas</th>
           </tr>
         </thead>
         <tbody>
@@ -63,6 +64,7 @@ export default function ProdiList() {
             <tr key={pro._id}>
               <td>{pro.nama}</td>
               <td>{pro.singkatan}</td>
+              <td>{pro.fakultas_id.nama}</td>
             </tr>
           ))}
         </tbody>
