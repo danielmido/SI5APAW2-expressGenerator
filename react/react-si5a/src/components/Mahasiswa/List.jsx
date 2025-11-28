@@ -2,6 +2,10 @@
 import { useState, useEffect } from "react";
 // Import axios untuk melakukan HTTP request ke API
 import axios from "axios";
+// Import sweetalert2
+import Swal from "sweetalert2";
+
+import { NavLink } from "react-router-dom";
 
 export default function MahasiswaList() {
   // State untuk menyimpan data mahasiswa dari API
@@ -45,10 +49,37 @@ export default function MahasiswaList() {
   // Tampilkan pesan error jika ada kesalahan
   if (error) return <div>Error: {error}</div>;
 
+  // handleDelete
+  const handleDelete = (id, nama) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  }
+
   // Render tabel mahasiswa jika data sudah tersedia
   return (
     <div>
       <h1>Mahasiswa List</h1>
+
+      {/* NavLink */}
+      <NavLink to="/mahasiswa/create" className="btn btn-primary mb-3">
+        Tambah Mahasiswa
+      </NavLink>
+
       <table className="table table-striped table-hover">
         <thead>
           <tr>
@@ -66,7 +97,17 @@ export default function MahasiswaList() {
               <td>{mah.npm}</td>
               <td>{mah.nama}</td>
               <td>{mah.tempat_lahir}</td>
-              <td>{mah.tanggal_lahir}</td>
+              <td>{new Date(mahasiswa.tanggal_lahir).toLocaleDateString('id-ID')}</td>
+              <td>
+                <button 
+                  className="btn btn-danger" 
+                  onClick={
+                    () => handleDelete(mahasiswa._id, mahasiswa.nama)
+                  }
+                >
+                  Hapus
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 // Import axios untuk melakukan HTTP request ke API
 import axios from "axios";
 
+import { NavLink } from "react-router-dom";
+
 export default function ProdiList() {
   // State untuk menyimpan data prodi dari API
   const [prodi, setProdi] = useState([]);
@@ -49,6 +51,12 @@ export default function ProdiList() {
   return (
     <div>
       <h1>Prodi List</h1>
+
+      {/* NavLink */}
+      <NavLink to="/prodi/create" className="btn btn-primary mb-3">
+        Tambah Prodi
+      </NavLink>
+
       <table className="table table-striped table-hover">
         <thead>
           <tr>
@@ -64,7 +72,7 @@ export default function ProdiList() {
             <tr key={pro._id}>
               <td>{pro.nama}</td>
               <td>{pro.singkatan}</td>
-              <td>{pro.fakultas_id.nama}</td>
+              <td>{pro.fakultas_id ? pro.fakultas_id.nama : null}</td>
             </tr>
           ))}
         </tbody>
