@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 // Import axios untuk melakukan HTTP request ke API
 import axios from "axios";
+// Import sweetalert2
+import Swal from "sweetalert2";
 
 import { NavLink } from "react-router-dom";
 
@@ -47,6 +49,34 @@ export default function ProdiList() {
   // Tampilkan pesan error jika ada kesalahan
   if (error) return <div>Error: {error}</div>;
 
+  // handleDelete
+  const handleDelete = (id, nama) => {
+    Swal.fire({
+      title: `Yakin mau hapus prodi ${nama}`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      // panggil endpoint API express pakai axios.delete()
+      if (result.isConfirmed) {
+        axios.delete(`https://newexpresssi5a-weld.vercel.app/api/prodi/${id}`)
+          .then((response) => {
+            // hapus baris pada tabel sesuai id / refresh state
+            setProdi(prodi.filter((f) => f._id !== id))
+
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            }); // akhir swal
+          })
+      } // akhir if
+    });
+  }
+
   // Render tabel prodi jika data sudah tersedia
   return (
     <div>
@@ -73,6 +103,16 @@ export default function ProdiList() {
               <td>{pro.nama}</td>
               <td>{pro.singkatan}</td>
               <td>{pro.fakultas_id ? pro.fakultas_id.nama : null}</td>
+              <td>
+                <button 
+                  className="btn btn-danger" 
+                  onClick={
+                    () => handleDelete(pro._id, pro.nama)
+                  }
+                >
+                  Hapus
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

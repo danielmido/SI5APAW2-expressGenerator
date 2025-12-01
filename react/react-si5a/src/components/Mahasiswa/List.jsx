@@ -52,7 +52,7 @@ export default function MahasiswaList() {
   // handleDelete
   const handleDelete = (id, nama) => {
     Swal.fire({
-      title: "Are you sure?",
+      title: `Yakin mau hapus mhs an. ${nama}`,
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
@@ -60,13 +60,20 @@ export default function MahasiswaList() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
+      // panggil endpoint API express pakai axios.delete()
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
-        });
-      }
+        axios.delete(`https://newexpresssi5a-weld.vercel.app/api/mahasiswa/${id}`)
+          .then((response) => {
+            // hapus baris pada tabel sesuai id / refresh state
+            setMahasiswa(mahasiswa.filter((f) => f._id !== id))
+
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            }); // akhir swal
+          })
+      } // akhir if
     });
   }
 
@@ -87,6 +94,7 @@ export default function MahasiswaList() {
             <th>Nama</th>
             <th>Tempat Lahir</th>
             <th>Tanggal Lahir</th>
+            <th>Prodi</th>
           </tr>
         </thead>
         <tbody>
@@ -97,12 +105,13 @@ export default function MahasiswaList() {
               <td>{mah.npm}</td>
               <td>{mah.nama}</td>
               <td>{mah.tempat_lahir}</td>
-              <td>{new Date(mahasiswa.tanggal_lahir).toLocaleDateString('id-ID')}</td>
+              <td>{new Date(mah.tanggal_lahir).toLocaleDateString('id-ID')}</td>
+              <td>{mah.prodi_id ? mah.prodi_id.nama : null}</td>
               <td>
                 <button 
                   className="btn btn-danger" 
                   onClick={
-                    () => handleDelete(mahasiswa._id, mahasiswa.nama)
+                    () => handleDelete(mah._id, mah.nama)
                   }
                 >
                   Hapus

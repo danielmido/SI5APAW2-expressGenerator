@@ -172,7 +172,7 @@ export default function CreateMahasiswa() {
             Tanggal Lahir
           </label>
           <input
-            type="text"
+            type="date"
             className="form-control"
             id="tanggal_lahir"
             name="tanggal_lahir"
